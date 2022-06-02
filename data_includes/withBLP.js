@@ -280,7 +280,7 @@ newTrial("intro_history",
                 .cssContainer("margin-bottom", "0.2em")
                 .log()
             ,         
-            newScale("lang1-scale",  parseInt(row.scalevalues))
+            newScale("lang1-scale",  ...row.scalevalues.split("."))
                 .labelsPosition("top")
                 .label(0, row.firstlabel)
                 .label(row.lastnum, row.lastlabel)
@@ -320,7 +320,7 @@ newTrial("intro_history",
         defaultText
             .css({display: 'flex', width: '700px', 'justify-content': 'space-between'})
         ,   
-        newScale("lang2-scale",  parseInt(row.scalevalues))
+        newScale("lang2-scale",  ...row.scalevalues.split("."))
             .labelsPosition("top")
             .label(0, row.firstlabel)
             .label(row.lastnum, row.lastlabel)
