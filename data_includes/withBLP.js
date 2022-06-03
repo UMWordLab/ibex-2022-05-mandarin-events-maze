@@ -11,16 +11,16 @@ var shuffleSequence = seq("consent", "IDentry", "intro", "tech",
             //            sepWith("sep", rshuffle(startsWith("break"), startsWith("hit"), startsWith("filler"))),
                         followEachWith("sep",randomize(anyOf(startsWith("break"),startsWith("hit"), startsWith("filler")))),
  // bilingual language profile survey
-                        "blpintro", 
-                        "bio",
-                        "intro_history",
-                        "history", 
-                        "intro_use",
-                        "use", 
-                        "intro_profic",
-                        "profic", 
-                        "intro_attit",
-                        "attit", 
+                        "blp.intro", 
+                        "blp.bio",
+                        "blp.history_intro",
+                        "blp.history", 
+                        "blp.use_intro",
+                        "blp.use", 
+                        "blp.profic_intro",
+                        "blp.profic", 
+                        "blp.attit_intro",
+                        "blp.attit", 
  //                       "closing",
  						"sendresults",
                         "completion"
@@ -202,7 +202,7 @@ var items = [
 /// Instructions:
 
 // Subject info
-newTrial("blpintro",
+newTrial("blp.intro",
     newText("InstructionText", "我们想请您回答一些关于您语言使用的问题，以下的问题包含您的语言使用历史，使用状况，语言态度以及语言程度。此问卷是由德州大学奥斯丁分校的开放教育资源及语言学习中心所研发，目的在于帮助我们了解双语者在多元的环境跟背景之下的个人资料。此份问卷有19个问题，作答时间约为10分钟。此份问卷不是能力测验，所以并没有标准答案，请您根据您本身的状况据实回答即可，感谢您的回答。")
         .print()
     ,
@@ -212,7 +212,7 @@ newTrial("blpintro",
 // -------------------------------------------------------------------
 // Biographical Information
   
-newTrial("bio",
+newTrial("blp.bio",
     newHtml("bio_html", "demographics.html")
         .center()
         .log()
@@ -238,7 +238,7 @@ newTrial("bio",
 
 // -------------------------------------------------------------------
 // Language History
-newTrial("intro_history",
+newTrial("blp.history_intro",
     newText("history_text", "<b>语言使用历史:</b> 这个部份的问题，我们想请您回答一些关于您本身语言使用历史的问题，请在相符的框框中勾选您的答案。")
         .print()
     ,
@@ -247,7 +247,7 @@ newTrial("intro_history",
     Template(GetTable( "blp.csv")
         .filter( row => row.category == "history")  // filter where row.category value equals 'history'
     , row => 
-    newTrial("history",
+    newTrial("blp.history",
             newText("quest_hist", row.question)
  //              .settings.css("font-size", "60px")
                 .settings.css("font-family", "avenir")
@@ -351,7 +351,7 @@ newTrial("intro_history",
 
 // -------------------------------------------------------------------
 // Language Use
-newTrial("intro_use",
+newTrial("blp.use_intro",
     newText("use_text", "<b>语言使用状况:</b> 在这个部分中，我们想请您回答一些关于您本身语言使用比例的问题，请在相符的框框中勾选您的答案。每一题的整体语言使用比例的总和必须为100%。")
         .print()
     ,
@@ -361,7 +361,7 @@ newTrial("intro_use",
     Template(GetTable( "blp.csv")
         .filter( row => row.category == "use")  // filter where row.category value equals 'history'
         , row => 
-        newTrial("use",
+        newTrial("blp.use",
             newText("quest_use", row.question)
         //              .settings.css("font-size", "60px")
                 .settings.css("font-family", "avenir")
@@ -510,7 +510,7 @@ newTrial("intro_use",
 
 // -------------------------------------------------------------------
 // Proficiency 
-newTrial("intro_profic",
+newTrial("blp.profic_intro",
     newText("profic_text", "<b>语言程度 </b> 在这个部分中，请您从1到7中自评您的语言程度。")
         .print()
     ,
@@ -520,7 +520,7 @@ newTrial("intro_profic",
 Template(GetTable( "blp.csv")
     .filter( row => row.category == "proficiency")  // filter where row.category value equals 'proficiency'
     , row => 
-    newTrial("profic",
+    newTrial("blp.profic",
         newText("quest_prof", row.question)
 //              .settings.css("font-size", "60px")
             .settings.css("font-family", "avenir")
@@ -608,7 +608,7 @@ Template(GetTable( "blp.csv")
 
         // -------------------------------------------------------------------
 // Attitudes
-newTrial("intro_attit",
+newTrial("blp.attit_intro",
 newText("attit_text", "<b>语言态度 </b>在这个部分中， 阅读完关于语言态度的题目叙述之后，从1到7中，选出你对叙述的同意程度。")
     .print()
 ,
@@ -618,7 +618,7 @@ newButton("continue", "继续").print().wait()
 Template(GetTable( "blp.csv")
 .filter( row => row.category == "attitudes")  // filter where row.category value equals 'attitudes'
 , row => 
-newTrial("attit",
+newTrial("blp.attit",
     newText("quest_prof", row.question)
 //              .settings.css("font-size", "60px")
         .settings.css("font-family", "avenir")
