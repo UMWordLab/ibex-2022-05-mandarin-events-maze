@@ -234,6 +234,13 @@ newTrial("blp.bio",
                 .wait()
             )
 )
+// extra logs just to align columns
+.log("counter", __counter_value_from_server__)
+.log("null1", "NULL")
+.log("null2", "NULL")
+.log("blp_item", "0")
+.log( "category", "bio")
+.log( "Subject", getVar("partID")) 
 
 
 // -------------------------------------------------------------------
@@ -244,7 +251,7 @@ newTrial("blp.history_intro",
     ,
     newButton("continue", "继续").print().wait()
 )
-    Template(GetTable( "blp.csv")
+Template(GetTable( "blp.csv")
         .filter( row => row.category == "history")  // filter where row.category value equals 'history'
     , row => 
     newTrial("blp.history",
@@ -342,7 +349,9 @@ newTrial("blp.history_intro",
             .print()
             .wait()
         )
+    .log("counter", __counter_value_from_server__)
     .log( "quest_hist", row.question)
+    .log("quest_null", "NULL")
     .log("blp_item", row.blp_item)
     .log( "category", row.category)
     .log( "Subject", getVar("partID")) 
@@ -358,7 +367,7 @@ newTrial("blp.use_intro",
     newButton("continue", "继续").print().wait()
 )
 
-    Template(GetTable( "blp.csv")
+Template(GetTable( "blp.csv")
         .filter( row => row.category == "use")  // filter where row.category value equals 'history'
         , row => 
         newTrial("blp.use",
@@ -501,7 +510,9 @@ newTrial("blp.use_intro",
             .print()
             .wait()
         )
+        .log("counter", __counter_value_from_server__)
         .log( "quest_use", row.question)
+        .log("quest_null", "NULL")
         .log("blp_item", row.blp_item)
         .log( "category", row.category)
         .log( "Subject", getVar("partID")) 
@@ -599,6 +610,7 @@ Template(GetTable( "blp.csv")
             .print()
             .wait()
         )
+        .log("counter", __counter_value_from_server__)
         .log( "quest_prof", row.question)
         .log("quest_prof2", row.question_L2)
         .log("blp_item", row.blp_item)
@@ -609,100 +621,101 @@ Template(GetTable( "blp.csv")
         // -------------------------------------------------------------------
 // Attitudes
 newTrial("blp.attit_intro",
-newText("attit_text", "<b>语言态度 </b>在这个部分中， 阅读完关于语言态度的题目叙述之后，从1到7中，选出你对叙述的同意程度。")
-    .print()
-,
-newButton("continue", "继续").print().wait()
+    newText("attit_text", "<b>语言态度 </b>在这个部分中， 阅读完关于语言态度的题目叙述之后，从1到7中，选出你对叙述的同意程度。")
+        .print()
+        ,
+    newButton("continue", "继续").print().wait()
 )
 
 Template(GetTable( "blp.csv")
-.filter( row => row.category == "attitudes")  // filter where row.category value equals 'attitudes'
-, row => 
-newTrial("blp.attit",
-    newText("quest_prof", row.question)
-//              .settings.css("font-size", "60px")
-        .settings.css("font-family", "avenir")
-        .print()
-    ,
-    newText("pad10", " ")  // adds padding between lines
-        .css('font-size','1em')
-        .print()
-    ,
-    defaultText
-        .css({display: 'flex', width: '700px', 'justify-content': 'space-between'})
-    ,
-    newText("span1", '<span>'+row.leftlabel+'</span><span>'+row.rightlabel+'</span>')
-        .color("blue")
-        .print()
-    ,
-    defaultScale
-        .css({width: "700px", 'max-width':'unset', 'margin-bottom':'0.5em'})
-        .cssContainer("margin-bottom", "0.2em")
-        .log()
-    ,         
-    newScale("lang1-scale",  parseInt(row.scalevalues))
-        .labelsPosition("top")
-        .label(0, row.firstlabel)
-        .label(row.lastnum, row.lastlabel)
-        .keys()
-        .print()
-    ,
-    newText("pad12", " ")  // adds padding between lines
-        .css('font-size','2em')
-        .print()
-    ,
-// language 2
-    newText("quest_prof2", row.question_L2)
+    .filter( row => row.category == "attitudes")  // filter where row.category value equals 'attitudes'
+    , row => 
+    newTrial("blp.attit",
+        newText("quest_prof", row.question)
     //              .settings.css("font-size", "60px")
             .settings.css("font-family", "avenir")
             .print()
         ,
-    newText("pad13", " ")  // adds padding between lines
-    .css('font-size','1em')
+        newText("pad10", " ")  // adds padding between lines
+            .css('font-size','1em')
+            .print()
+        ,
+        defaultText
+            .css({display: 'flex', width: '700px', 'justify-content': 'space-between'})
+        ,
+        newText("span1", '<span>'+row.leftlabel+'</span><span>'+row.rightlabel+'</span>')
+            .color("blue")
+            .print()
+        ,
+        defaultScale
+            .css({width: "700px", 'max-width':'unset', 'margin-bottom':'0.5em'})
+            .cssContainer("margin-bottom", "0.2em")
+            .log()
+        ,         
+        newScale("lang1-scale",  parseInt(row.scalevalues))
+            .labelsPosition("top")
+            .label(0, row.firstlabel)
+            .label(row.lastnum, row.lastlabel)
+            .keys()
+            .print()
+        ,
+        newText("pad12", " ")  // adds padding between lines
+            .css('font-size','2em')
+            .print()
+        ,
+    // language 2
+        newText("quest_prof2", row.question_L2)
+        //              .settings.css("font-size", "60px")
+                .settings.css("font-family", "avenir")
+                .print()
+            ,
+        newText("pad13", " ")  // adds padding between lines
+        .css('font-size','1em')
+            .print()
+        ,
+        defaultText
+            .css({display: 'flex', width: '700px', 'justify-content': 'space-between'})
+        ,   
+        // button labels
+        // "<span>left label</span><span>right label</span>"
+        newText("span2", '<span>'+row.leftlabel+'</span><span>'+row.rightlabel+'</span>')
+            .color("blue")
+            .print()
+        ,
+        defaultScale
+            .css({width: "700px", 'max-width':'unset', 'margin-bottom':'0.5em'})
+            .cssContainer("margin-bottom", "0.2em")
+            .log()
+        ,         
+        newScale("lang2-scale",  parseInt(row.scalevalues))
+            .labelsPosition("top")
+            .label(0, row.firstlabel)
+            .label(row.lastnum, row.lastlabel)
+            .keys()
+            .print()
+        ,
+        getScale("lang1-scale")
+        .wait("first")
+        ,
+        getScale("lang2-scale")
+        .wait("first")
+        ,    
+        newText("pad14", " ")  // adds padding between lines
+        .css('font-size','2em')
         .print()
-    ,
-    defaultText
-        .css({display: 'flex', width: '700px', 'justify-content': 'space-between'})
-    ,   
-    // button labels
-    // "<span>left label</span><span>right label</span>"
-    newText("span2", '<span>'+row.leftlabel+'</span><span>'+row.rightlabel+'</span>')
-        .color("blue")
-        .print()
-    ,
-    defaultScale
-        .css({width: "700px", 'max-width':'unset', 'margin-bottom':'0.5em'})
-        .cssContainer("margin-bottom", "0.2em")
-        .log()
-    ,         
-    newScale("lang2-scale",  parseInt(row.scalevalues))
-        .labelsPosition("top")
-        .label(0, row.firstlabel)
-        .label(row.lastnum, row.lastlabel)
-        .keys()
-        .print()
-    ,
-    getScale("lang1-scale")
-    .wait("first")
-    ,
-    getScale("lang2-scale")
-    .wait("first")
-    ,    
-    newText("pad14", " ")  // adds padding between lines
-    .css('font-size','2em')
-    .print()
-    ,
-    newButton("continue", "继续")
-        .before(newCanvas("canv-continue",290,20))
-        .print()
-        .wait()
+        ,
+        newButton("continue", "继续")
+            .before(newCanvas("canv-continue",290,20))
+            .print()
+            .wait()
     )
+    .log("counter", __counter_value_from_server__)
     .log( "quest_prof", row.question)
     .log("quest_prof2", row.question_L2)
     .log("blp_item", row.blp_item)
     .log( "category", row.category)
     .log( "Subject", getVar("partID")) 
-    )
+)
 
 
 // prolific page URL: https://app.prolific.co/submissions/complete?cc=1F43E610
