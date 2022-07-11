@@ -235,7 +235,9 @@ newTrial("blp.bio",
             )
 )
 // extra logs just to align columns
-.log("counter", __counter_value_from_server__)
+// apparently counter can only be used with templates
+//.log("counter", __counter_value_from_server__)
+.log("null0", "NULL")
 .log("null1", "NULL")
 .log("null2", "NULL")
 .log("blp_item", "0")
